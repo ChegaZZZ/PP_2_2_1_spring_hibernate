@@ -4,11 +4,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
-
-import javax.persistence.CascadeType;
 import javax.persistence.GenerationType;
 
 @Entity
@@ -16,7 +12,6 @@ import javax.persistence.GenerationType;
 public class User {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -29,19 +24,14 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_id")
-    private Car car;
-
     public User() {
 
     }
 
-    public User(String firstName, String lastName, String email, Car car) {
+    public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.car = car;
     }
 
     public Long getId() {
@@ -76,17 +66,8 @@ public class User {
         this.email = email;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
     @Override
     public String toString() {
-        return String.format("User [id = %d, firstName = %s, lastName = %s, email = %s, car_id = %s]",
-                id, firstName, lastName, email, car);
+        return String.format("User[id = %d, firstName = %s, lastName = %s, email = %s]", id, firstName, lastName, email);
     }
 }
